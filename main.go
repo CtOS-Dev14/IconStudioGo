@@ -16,7 +16,7 @@ func main() {
 	app := NewApp()
 
 	err := wails.Run(&options.App{
-		Title:             "Icon Studio Pro UHD v2.2.3",
+		Title:             "Icon Studio Pro UHD v2.2.4",
 		Width:             1120,
 		Height:            720,
 		MinWidth:          840,
@@ -28,6 +28,10 @@ func main() {
 		OnStartup:     app.startup,
 		OnDomReady:    app.domReady,
 		OnBeforeClose: app.beforeClose,
+		SingleInstanceLock: &options.SingleInstanceLock{
+			UniqueId:               "ctos-iconstudio-uhd-singleinstance-lock",
+			OnSecondInstanceLaunch: app.onSecondInstanceLaunch,
+		},
 		Bind: []interface{}{
 			app,
 		},

@@ -9,13 +9,15 @@ import (
 
 	"IconStudio/pkg/peicon"
 	"IconStudio/pkg/settings"
+	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
+	"strings"
 )
 
 const (
 	AppName     = "Icon Studio"
-	AppVersion  = "v2.2.3"
-	AppBuild    = "2.2.3.0"
+	AppVersion  = "v2.2.4"
+	AppBuild    = "2.2.4.0"
 	AppDesc     = "Windows UHD Multi-size Master Pack Icon Studio (Go Engine 2.2)"
 	CompanyName = "CTOS"
 	ProductName = "Icon Studio Pro UHD 2.2"
@@ -47,6 +49,30 @@ func (a *App) startup(ctx context.Context) {
 			runtime.EventsEmit(ctx, "file-dropped", paths[0])
 		}
 	})
+}
+
+// onSecondInstanceLaunch is called when a second instance is launched
+func (a *App) onSecondInstanceLaunch(secondInstanceData options.SecondInstanceData) {
+	if a.ctx == nil {
+		return
+	}
+	runtime.WindowUnminimise(a.ctx)
+	runtime.WindowShow(a.ctx)
+	// Bring to foreground in Windows
+	runtime.WindowSetAlwaysOnTop(a.ctx, true)
+	runtime.WindowSetAlwaysOnTop(a.ctx, false)
+
+	// If any supported file was passed as argument, open it immediately
+	for _, arg := range secondInstanceData.Args {
+		if strings.HasPrefix(arg, "-") {
+			continue
+		}
+		ext := strings.ToLower(filepath.Ext(arg))
+		if ext == ".exe" || ext == ".dll" || ext == ".mun" || ext == ".ocx" || ext == ".cpl" || ext == ".scr" || ext == ".ico" {
+			runtime.EventsEmit(a.ctx, "file-dropped", arg)
+			break
+		}
+	}
 }
 
 // domReady is called when the frontend DOM is ready

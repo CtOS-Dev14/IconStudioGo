@@ -1,6 +1,6 @@
 # IconStudio (IconStudioGo) 🎨✨
 
-[![Version](https://img.shields.io/badge/version-2.2.3-blue.svg)](https://github.com/CtOS-Dev14/IconStudioGo)
+[![Version](https://img.shields.io/badge/version-2.2.4-blue.svg)](https://github.com/CtOS-Dev14/IconStudioGo)
 [![Go Version](https://img.shields.io/badge/go-1.24+-00ADD8.svg)](https://golang.org)
 [![Wails](https://img.shields.io/badge/wails-v2-red.svg)](https://wails.io)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11%20%7C%20WinPE-0078D6.svg)](https://microsoft.com)
@@ -31,6 +31,11 @@
 - 시스템 레지스트리나 `%APPDATA%`에 의존하지 않고, 실행 파일이 위치한 폴더에 `settings.json`을 저장합니다.
 - USB 메모리, 외장 드라이브, Windows PE 환경에서도 이전 창 크기, 위치, 테마 설정이 그대로 유지됩니다.
 
+### 6. 단일 실행 보장 (Single Instance Lock)
+- 프로세스 중복 실행을 원천 차단하여 메모리와 리소스를 보호합니다.
+- 프로그램이 실행 중일 때 추가 실행을 시도하면 기존 창이 자동으로 최소화 해제 및 최상위로 활성화(Bring to front)됩니다.
+- 다른 파일을 통해 연결 실행 시 기존 창에서 해당 파일을 즉시 감지하여 자동으로 불러옵니다.
+
 ---
 
 ## 🛠️ 기술 스택 (Tech Stack)
@@ -56,13 +61,17 @@
 git clone https://github.com/CtOS-Dev14/IconStudioGo.git
 cd IconStudioGo
 
-# 프로덕션 단일 실행 파일 빌드 (build/bin/IconStudio_v2.2.3.exe 생성)
-wails build -clean -nsis=false -o IconStudio_v2.2.3.exe
+# 프로덕션 단일 실행 파일 빌드 (build/bin/IconStudio_v2.2.4.exe 생성)
+wails build -clean -nsis=false -o IconStudio_v2.2.4.exe
 ```
 
 ---
 
 ## 📝 버전 히스토리 (Changelog)
+
+### v2.2.4 (Build 2.2.4.0)
+- **단일 실행 보장 (Single Instance Lock)**: 중복 프로세스 실행 방지 및 기존 창 자동 활성화
+- **스마트 인자 연동**: 이미 실행 중일 때 외부 파일 실행/연결 시 기존 창에서 즉시 로드
 
 ### v2.2.3 (Build 2.2.3.0)
 - **Portable WinPE 모드**: 실행 파일 기준 로컬 설정 저장(`settings.json`) 적용
