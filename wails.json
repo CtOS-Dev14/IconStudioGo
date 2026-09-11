@@ -1,0 +1,20 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "IconStudio_v2.2.3",
+  "outputfilename": "IconStudio_v2.2.3",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "CTOS",
+    "email": ""
+  },
+  "info": {
+    "companyName": "CTOS",
+    "productName": "Icon Studio Pro UHD 2.2",
+    "productVersion": "2.2.3.0",
+    "copyright": "Copyright (c) 2026 CTOS. All rights reserved.",
+    "comments": "Icon Studio - Windows UHD Multi-size Icon Extractor"
+  }
+}

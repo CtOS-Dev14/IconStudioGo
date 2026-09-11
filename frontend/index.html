@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Icon Studio Pro UHD v2.2.3</title>
+    <link rel="stylesheet" href="./src/style.css"/>
+</head>
+<body style="--wails-drop-target: drop;">
+    <div id="app" class="app-container" style="--wails-drop-target: drop;">
+        <!-- Header Bar -->
+        <header class="header">
+            <div class="header-left">
+                <div class="app-branding">
+                    <img src="./src/assets/images/app_logo.png" class="app-icon-badge" alt="Logo"/>
+                    <h1 class="app-title">Icon Studio</h1>
+                    <span class="version-badge">v2.2.3</span>
+                </div>
+                <div class="status-box">
+                    <span id="status-text" class="status-text">파일을 열거나 창 위로 끌어다 놓으세요</span>
+                    <div id="loading-spinner" class="spinner hidden"></div>
+                </div>
+            </div>
+            <div class="header-right">
+                <button id="btn-theme-toggle" class="btn btn-icon" title="테마 변경 (시스템 설정 / 다크 / 라이트)">
+                    <span id="theme-icon">💻</span>
+                    <span id="theme-label" class="theme-label-text">시스템</span>
+                </button>
+                <button id="btn-select-all" class="btn btn-secondary" disabled>전체 선택</button>
+                <button id="btn-open-file" class="btn btn-primary">📁 파일 열기</button>
+                <button id="btn-info" class="btn btn-icon" title="프로그램 정보">ⓘ 정보</button>
+            </div>
+        </header>
+
+        <!-- Main Body -->
+        <div class="main-body" style="--wails-drop-target: drop;">
+            <!-- Left: Grid Area / Dropzone -->
+            <div id="grid-container" class="grid-container" style="--wails-drop-target: drop;">
+                <!-- Initial Empty Dropzone -->
+                <div id="dropzone-guide" class="dropzone-guide" style="--wails-drop-target: drop;">
+                    <div class="drop-icon">📥</div>
+                    <h2>바이너리 또는 DLL 파일을 이곳에 끌어다 놓으세요</h2>
+                    <p>EXE, DLL, MUN, CPL, SCR, OCX 형식의 윈도우 리소스를 초고속으로 분석합니다.</p>
+                    <button id="btn-browse-guide" class="btn btn-primary btn-large">내 컴퓨터에서 파일 찾기</button>
+                </div>
+
+                <!-- Icon Cards Grid -->
+                <div id="icon-grid" class="icon-grid hidden"></div>
+            </div>
+
+            <!-- Right: Inspector Panel -->
+            <aside id="inspector" class="inspector-panel">
+                <div class="inspector-header">
+                    <h3>아이콘 인스펙터</h3>
+                </div>
+
+                <div class="preview-card">
+                    <div class="preview-box">
+                        <img id="inspector-preview-img" src="" alt="Preview" class="preview-img hidden"/>
+                        <div id="preview-placeholder" class="preview-placeholder">선택 없음</div>
+                    </div>
+                </div>
+
+                <div class="inspector-details">
+                    <h4 id="inspector-title" class="inspect-title">아이콘을 선택하세요</h4>
+                    <span id="inspector-badge" class="tag-badge hidden">UHD 256px</span>
+                </div>
+
+                <div class="layers-section">
+                    <div class="section-label">포함된 레이어 규격 (<span id="layer-count">0</span>개)</div>
+                    <div class="layers-table-wrapper">
+                        <table class="layers-table">
+                            <thead>
+                                <tr>
+                                    <th>해상도</th>
+                                    <th>색상</th>
+                                    <th>포맷</th>
+                                </tr>
+                            </thead>
+                            <tbody id="layers-tbody">
+                                <tr>
+                                    <td colspan="3" class="table-empty">레이어 정보가 없습니다</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Inspector Actions -->
+                <div class="inspector-actions">
+                    <button id="btn-extract-ico" class="btn btn-accent btn-full" disabled>
+                        💾 UHD 256px ICO 팩 저장
+                    </button>
+                    <button id="btn-extract-png" class="btn btn-outline btn-full" disabled>
+                        🖼️ 최고화질 투명 PNG 저장
+                    </button>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <footer class="bottom-bar">
+            <div class="bottom-left">
+                <span id="selected-summary" class="selected-summary">0개 선택됨</span>
+            </div>
+            <div class="bottom-right">
+                <button id="btn-batch-png" class="btn btn-secondary" disabled>
+                    선택 항목 고화질 PNG 일괄 추출
+                </button>
+                <button id="btn-batch-ico" class="btn btn-primary" disabled>
+                    선택 항목 UHD ICO 팩 일괄 추출
+                </button>
+            </div>
+        </footer>
+
+        <!-- About Modal -->
+        <div id="about-modal" class="modal-backdrop hidden">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <div class="modal-branding">
+                        <img src="./src/assets/images/app_logo.png" class="modal-logo" alt="Logo"/>
+                        <div>
+                            <h3 id="modal-app-name">Icon Studio Pro UHD</h3>
+                            <span id="modal-app-version" class="modal-ver">v2.2.3 (Build 2.2.3.0)</span>
+                        </div>
+                    </div>
+                    <button id="btn-close-modal" class="btn-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="desc-text" id="modal-app-desc"></p>
+                    <ul class="feature-list">
+                        <li>⚡ <strong>초고속 Go 엔진</strong>: 대용량 리소스(shell32, imageres)도 0.1초 내 병렬 파싱</li>
+                        <li>🛡️ <strong>스마트 UHD 마스터 팩</strong>: 256px 누락 시에도 최고화질 7종 멀티레이어 자동 재구성</li>
+                        <li>💎 <strong>포트 미사용 순수 네이티브</strong>: 충돌 걱정 없는 완전한 독립형 단일 실행기</li>
+                        <li>🚀 <strong>Windows 11 .mun 자동 리졸브</strong>: System32 리소스 파일 투명하게 연결</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-modal-ok" class="btn btn-primary">확인</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast hidden">
+            <span id="toast-message"></span>
+            <button id="toast-action" class="toast-btn hidden">폴더 열기</button>
+        </div>
+    </div>
+
+    <script src="./src/main.js" type="module"></script>
+</body>
+</html>

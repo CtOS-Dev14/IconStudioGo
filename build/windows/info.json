@@ -1,0 +1,30 @@
+{
+	"fixed": {
+		"file_version": "2.2.3.0",
+		"product_version": "2.2.3.0"
+	},
+	"info": {
+		"0000": {
+			"CompanyName": "CTOS",
+			"FileDescription": "Icon Studio - Windows UHD Multi-size Icon Extractor",
+			"FileVersion": "2.2.3.0",
+			"InternalName": "IconStudio_v2.2.3",
+			"LegalCopyright": "Copyright (c) 2026 CTOS. All rights reserved.",
+			"OriginalFilename": "IconStudio_v2.2.3.exe",
+			"ProductName": "Icon Studio Pro UHD 2.2",
+			"ProductVersion": "2.2.3.0",
+			"Comments": "Windows UHD Multi-size Master Pack Icon Studio (Go Engine Portable)"
+		},
+		"0412": {
+			"CompanyName": "CTOS",
+			"FileDescription": "Icon Studio - Windows UHD Multi-size Icon Extractor",
+			"FileVersion": "2.2.3.0",
+			"InternalName": "IconStudio_v2.2.3",
+			"LegalCopyright": "Copyright (c) 2026 CTOS. All rights reserved.",
+			"OriginalFilename": "IconStudio_v2.2.3.exe",
+			"ProductName": "Icon Studio Pro UHD 2.2",
+			"ProductVersion": "2.2.3.0",
+			"Comments": "Windows UHD Multi-size Master Pack Icon Studio (Go Engine Portable)"
+		}
+	}
+}
